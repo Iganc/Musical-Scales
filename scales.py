@@ -42,28 +42,24 @@ note = letter_to_num.get(note, None)
 
 # print(note)
 def major_scale(note):
-    print(f"The {note} major (ionan) scale is:")
     notes = [note, note + 2, note + 4, note + 5, note + 7, note + 9, note + 11]
     notes = [num_to_letter.get(note, None) for note in notes]
     return notes
 
 
 def natural_minor_scale(note):
-    print(f"The {note} natural (aeolian) minor scale is:")
     notes = [note, note + 2, note + 3, note + 5, note + 7, note + 8, note + 10]
     notes = [num_to_letter.get(note, None) for note in notes]
     return notes
 
 
 def harmonic_minor_scale(note):
-    print(f"The {note} harmonic minor scale is:")
     notes = [note, note + 2, note + 3, note + 5, note + 7, note + 8, note + 11]
     notes = [num_to_letter.get(note, None) for note in notes]
     return notes
 
 
 def melodic_minor_scale(note):
-    print(f"The {note} harmonic minor scale is:")
     notes = [note, note + 2, note + 3, note + 5, note + 7, note + 9, note + 11]
     notes = [num_to_letter.get(note, None) for note in notes]
     return notes
@@ -117,9 +113,85 @@ def locrian_mode(note):
     notes = major_scale(note)
     return notes
 
-print(major_scale(note))
+def chord_prog(note):
+    scale = input("What scale are you using? ").lower()
+    if scale == "major":
+        major_scale_notes = major_scale(note)
+        first = major_scale_notes[0] + "maj"
+        second = major_scale_notes[1] + "min"
+        third = major_scale_notes[2] + "min"
+        fourth = major_scale_notes[3] + "maj"
+        fifth = major_scale_notes[4] + "maj"
+        sixth = major_scale_notes[5] + "min"
+        seventh = major_scale_notes[6] + "dim"
+    if scale == "natural minor" or scale =="minor":
+        natural_minor_notes = natural_minor_scale(note)
+        first = natural_minor_notes[0] + "min"
+        second = natural_minor_notes[1] + "dim"
+        third = natural_minor_notes[2] + "maj"
+        fourth = natural_minor_notes[3] + "min"
+        fifth = natural_minor_notes[4] + "min"
+        sixth = natural_minor_notes[5] + "maj"
+        seventh = natural_minor_notes[6] + "maj"
+    print(f"I={first}, II={second}, III={third}, IV={fourth}, V={fifth}, VI={sixth}, VII={seventh}")
+
+
+def chord_identifier(note):
+    notes = input("Insert the notes (separated by spaces): ").split()
+    numbers = sorted(letter_to_num[note] for note in notes)
+    print("Notes:", notes)
+    print("numbers", numbers)
+
+    if len(numbers) == 3:
+
+        intervals = [
+            (numbers[1] - numbers[0]) % 12,
+            (numbers[2] - numbers[1]) % 12,
+            (numbers[2] - numbers[0]) % 12
+        ]
+        # Sort intervals to match with known patterns
+        intervals = sorted(set(intervals))
+        print("Intervals:", intervals)
+
+        # Define chord patterns
+        major = [0, 4, 7]  # Major chord intervals
+        minor = [0, 3, 7]  # Minor chord intervals
+        diminished = [0, 3, 6]  # Diminished chord intervals
+        augmented = [0, 4, 8]  # Augmented chord intervals
+
+        # Determine the chord type
+        if intervals == major:
+            print(f"The chord is a {num_to_letter[root]} major chord.")
+        elif intervals == minor:
+            print(f"The chord is a {num_to_letter[root]} minor chord.")
+        elif intervals == diminished:
+            print(f"The chord is a {num_to_letter[root]} diminished chord.")
+        elif intervals == augmented:
+            print(f"The chord is a {num_to_letter[root]} augmented chord.")
+        else:
+            print("The chord is neither major, minor, diminished, nor augmented.")
+    else:
+        print("Please enter exactly three notes.")
+    if len(numbers) == 4:
+        intervals = {
+            "maj_7": [1, 5, 8, 10],
+            "min_7": [1, 4, 8, 10],
+            "sus2": [1, 3, 5, 8],
+            "sus4": [1, 5, 6, 8]
+        }
+
+
+
+
+
+
+
+
+# print("The major (ionan) scale of your note is:", major_scale(note))
 # print(dorian_mode(note))
 # print(phrygian_mode(note))
 # print(lydian_mode(note))
 # print(mixolydian_mode(note))
-print(locrian_mode(note))
+# print(locrian_mode(note))
+# chord_prog(note)
+print(chord_identifier(note))
