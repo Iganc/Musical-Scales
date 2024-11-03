@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Scales</title>
+    <link rel="stylesheet" href="{% static 'css/scales.css' %}">
+<script>
+    function highlightSelectedNote(noteId, noteValue) {
+    const noteElements = document.querySelectorAll('.note-box');
+    noteElements.forEach(el => el.classList.remove('selected'));
+
+    const selectedNote = document.getElementById(noteId);
+    selectedNote.classList.add('selected');
+
+    document.getElementById('selectedNote').value = noteValue;
+
+    // Check if both note and scale are selected, then submit
+    if (document.getElementById('selectedNote').value && document.getElementById('selectedScale').value) {
+        document.querySelector('form').submit();
+    } else {
+        updateDisplay();  // Updates display if not both are selected
+    }
+}
+
+function highlightSelectedScale(scaleId, scaleValue) {
+    const scaleElements = document.querySelectorAll('.scale-box');
+    scaleElements.forEach(el => el.classList.remove('selected'));
+
+    const selectedScale = document.getElementById(scaleId);
+    selectedScale.classList.add('selected');
+
+    document.getElementById('selectedScale').value = scaleValue;
+
+    // Check if both note and scale are selected, then submit
+    if (document.getElementById('selectedNote').value && document.getElementById('selectedScale').value) {
+        document.querySelector('form').submit();
+    } else {
+        updateDisplay();  // Updates display if not both are selected
+    }
+}
+
+    function updateDisplay() {
+    const note = document.getElementById('selectedNote').value;
+    const scale = document.getElementById('selectedScale').value;
+
+    // Update the display if at least one of note or scale is selected
+    if (note) {
+        document.getElementById('displayNote').innerText = note;
+    }
+    if (scale) {
+        document.getElementById('displayScale').innerText = scale;
+    }
+}
+</script>
+</head>
+<body>
+<!--    <img src="{% static 'EXPLORE SCALES.png' %}" alt="EXPLORE SCALES" width="25%">-->
+
+    <form action="{% url 'explore-scales' %}" method="POST">
+        {% csrf_token %}
+
+        <!-- Hidden inputs for selected values -->
+<input type="hidden" id="selectedNote" name="note" value="{{ note }}">
+<input type="hidden" id="selectedScale" name="scale" value="{{ scale }}">
+
+<!-- Note Selection -->
+<label for="note">Select a note:</label><br>
+    <div class="note-grid-container">
+        <div id="noteC" class="note-box {% if note == 'C' %}selected{% endif %}" onclick="highlightSelectedNote('noteC', 'C')" value="C">C</div>
+        <div id="noteCsharp" class="note-box {% if note == 'C#' %}selected{% endif %}" onclick="highlightSelectedNote('noteCsharp', 'C#')" value="C#">C#</div>
+        <div id="noteD" class="note-box {% if note == 'D' %}selected{% endif %}" onclick="highlightSelectedNote('noteD', 'D')" value="D">D</div>
+        <div id="noteDsharp" class="note-box {% if note == 'D#' %}selected{% endif %}" onclick="highlightSelectedNote('noteDsharp', 'D#')" value="D#">D#</div>
+        <div id="noteE" class="note-box {% if note == 'E' %}selected{% endif %}" onclick="highlightSelectedNote('noteE', 'E')" value="E">E</div>
+        <div id="noteF" class="note-box {% if note == 'F' %}selected{% endif %}" onclick="highlightSelectedNote('noteF', 'F')" value="F">F</div>
+        <div id="noteFsharp" class="note-box {% if note == 'F#' %}selected{% endif %}" onclick="highlightSelectedNote('noteFsharp', 'F#')" value="F#">F#</div>
+        <div id="noteG" class="note-box {% if note == 'G' %}selected{% endif %}" onclick="highlightSelectedNote('noteG', 'G')" value="G">G</div>
+        <div id="noteGsharp" class="note-box {% if note == 'G#' %}selected{% endif %}" onclick="highlightSelectedNote('noteGsharp', 'G#')" value="G#">G#</div>
+        <div id="noteA" class="note-box {% if note == 'A' %}selected{% endif %}" onclick="highlightSelectedNote('noteA', 'A')" value="A">A</div>
+        <div id="noteAsharp" class="note-box {% if note == 'A#' %}selected{% endif %}" onclick="highlightSelectedNote('noteAsharp', 'A#')" value="A#">A#</div>
+        <div id="noteB" class="note-box {% if note == 'B' %}selected{% endif %}" onclick="highlightSelectedNote('noteB', 'B')" value="B">B</div>
+    </div>
+
+<br><br>
+
+<!-- Scale Selection -->
+<label for="scale">Choose a scale:</label><br>
+<div class="scale-grid-container">
+    <div id="major_scale" class="scale-box {% if scale == 'major' %}selected{% endif %}" onclick="highlightSelectedScale('major_scale', 'major')">Major Scale</div>
+    <div id="natural_minor_scale" class="scale-box {% if scale == 'natural minor' %}selected{% endif %}" onclick="highlightSelectedScale('natural_minor_scale', 'natural minor')">Natural Minor</div>
+    <div id="harmonic_minor_scale" class="scale-box {% if scale == 'harmonic minor' %}selected{% endif %}" onclick="highlightSelectedScale('harmonic_minor_scale', 'harmonic minor')">Harmonic Minor</div>
+    <div id="melodic_minor_scale" class="scale-box {% if scale == 'melodic minor' %}selected{% endif %}" onclick="highlightSelectedScale('melodic_minor_scale', 'melodic minor')">Melodic Minor</div>
+    <div id="ionian_mode" class="scale-box {% if scale == 'ionian' %}selected{% endif %}" onclick="highlightSelectedScale('ionian_mode', 'ionian')">Ionian Mode</div>
+    <div id="dorian_mode" class="scale-box {% if scale == 'dorian' %}selected{% endif %}" onclick="highlightSelectedScale('dorian_mode', 'dorian')">Dorian Mode</div>
+    <div id="phrygian_mode" class="scale-box {% if scale == 'phrygian' %}selected{% endif %}" onclick="highlightSelectedScale('phrygian_mode', 'phrygian')">Phrygian Mode</div>
+    <div id="lydian_mode" class="scale-box {% if scale == 'lydian' %}selected{% endif %}" onclick="highlightSelectedScale('lydian_mode', 'lydian')">Lydian Mode</div>
+    <div id="mixolydian_mode" class="scale-box {% if scale == 'mixolydian' %}selected{% endif %}" onclick="highlightSelectedScale('mixolydian_mode', 'mixolydian')">Mixolydian Mode</div>
+    <div id="aeolian_mode" class="scale-box {% if scale == 'aeolian' %}selected{% endif %}" onclick="highlightSelectedScale('aeolian_mode', 'aeolian')">Aeolian Mode</div>
+    <div id="locrian_mode" class="scale-box {% if scale == 'locrian' %}selected{% endif %}" onclick="highlightSelectedScale('locrian_mode', 'locrian')">Locrian Mode</div>
+</div>
+<!--<div>-->
+<!--    <p>Selected Note: <span id="displayNote"></span></p>-->
+<!--    <p>Selected Scale: <span id="displayScale"></span></p>-->
+<!--</div>-->
+<br><br>
+
+
+    </form>
+
+    {% if result %}
+    <h2 class="result-heading">Generated Scale:</h2>
+    <ul class="result-list">
+        {% for note in result %}
+            <li>{{ note }}</li>  <!-- Each note will appear as a styled box -->
+        {% endfor %}
+    </ul>
+{% endif %}
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scale Results</title>
+</head>
+<body>
+    <h1>Scale Results</h1>
+
+    <h2>Note: {{ note }}</h2>
+    <h3>Scale: {{ scale }}</h3>
+    <p>The resulting notes in the {{ scale }} scale are:</p>
+
+    <ul>
+        {% for note in result %}
+            <li>{{ note }}</li>
+        {% empty %}
+            <li>No notes found.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'explore-scales' %}">Try again</a>
+</body>
+</html>

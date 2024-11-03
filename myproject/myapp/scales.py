@@ -35,6 +35,19 @@ num_to_letter = {
     11: 'A#', 23: 'A#',
     12: 'B', 24: 'B',
 }
+flats_to_sharps = {
+    'C#': 'Db',
+    'D#': 'Eb',
+    'F#': 'Gb',
+    'G#': 'Ab',
+    'A#': 'Bb',
+    'Db': 'C#',
+    'Eb': 'D#',
+    'Gb': 'F#',
+    'Ab': 'G#',
+    'Bb': 'A#'
+}
+
 
 note = input("Give me a note: ").upper()
 note = letter_to_num.get(note, None)
@@ -65,7 +78,7 @@ def melodic_minor_scale(note):
     return notes
 
 
-def ionan_mode(note):
+def ionian_mode(note):
     notes = major_scale(note)
     return notes
 
@@ -137,29 +150,34 @@ def chord_prog(note):
 
 
 def chord_identifier(note):
+
     notes = input("Insert the notes (separated by spaces): ").split()
-    numbers = sorted(letter_to_num[note] for note in notes)
-    print("Notes:", notes)
-    print("numbers", numbers)
+    notes = [n.upper() for n in notes]
+    # print("Converted notes to uppercase:", notes)
+    # print(notes)
 
+    numbers = [letter_to_num.get(note) for note in notes] ##IF SORTED THEN SOME CHORDS DONT WORK, IF NOT SORTED THEN NOTES HAVE TO BE ENTERED IN THE RIGHT ORDER
+    root = numbers[0]
+    # print("Notes:", notes)
+    # print("numbers", numbers)
+    # print("ROOT:", root)
     if len(numbers) == 3:
-
         intervals = [
-            (numbers[1] - numbers[0]) % 12,
+            (numbers[0] - numbers[0]) % 12,
             (numbers[2] - numbers[1]) % 12,
             (numbers[2] - numbers[0]) % 12
         ]
         # Sort intervals to match with known patterns
         intervals = sorted(set(intervals))
-        print("Intervals:", intervals)
+        # print("Intervals:", intervals)
 
-        # Define chord patterns
-        major = [0, 4, 7]  # Major chord intervals
-        minor = [0, 3, 7]  # Minor chord intervals
-        diminished = [0, 3, 6]  # Diminished chord intervals
-        augmented = [0, 4, 8]  # Augmented chord intervals
+        major = [0, 3, 7]
+        minor = [0, 4, 7]
+        diminished = [0, 5, 8]
+        augmented = [0, 4, 8]
+        sus2 = [0, 5, 7]
+        sus4 = [0, 2, 7]
 
-        # Determine the chord type
         if intervals == major:
             print(f"The chord is a {num_to_letter[root]} major chord.")
         elif intervals == minor:
@@ -168,30 +186,94 @@ def chord_identifier(note):
             print(f"The chord is a {num_to_letter[root]} diminished chord.")
         elif intervals == augmented:
             print(f"The chord is a {num_to_letter[root]} augmented chord.")
+        elif intervals == sus2:
+            print(f"The chord is a {num_to_letter[root]} sus2 chord.")
+        elif intervals == sus4:
+            print(f"The chord is a {num_to_letter[root]} sus4 chord.")
         else:
-            print("The chord is neither major, minor, diminished, nor augmented.")
-    else:
-        print("Please enter exactly three notes.")
+            print("No chord found.")
+
     if len(numbers) == 4:
-        intervals = {
-            "maj_7": [1, 5, 8, 10],
-            "min_7": [1, 4, 8, 10],
-            "sus2": [1, 3, 5, 8],
-            "sus4": [1, 5, 6, 8]
-        }
+
+        intervals = [
+            (numbers[0] - numbers[0]) % 12,
+            (numbers[1] - numbers[0]) % 12,
+            (numbers[2] - numbers[0]) % 12,
+            (numbers[3] - numbers[0]) % 12
+        ]
+
+        intervals = sorted(set(intervals))
+        # print("Intervals:", intervals)
+
+        maj7 = [0, 4, 7, 11]
+        min7 = [0, 3, 7, 10]
+        add9 = [0, 2, 4, 7]
+        dim7 = [0, 3, 6, 9]
+        sus47= [0, 2, 5, 7] ##NOT WORKING
+
+        if intervals == maj7:
+            print(f"The chord is a {num_to_letter[root]} major 7 chord.")
+        elif intervals == min7:
+            print(f"The chord is a {num_to_letter[root]} minor 7 chord.")
+        elif intervals == add9:
+            print(f"The chord is a {num_to_letter[root]}add9 chord.")
+        elif intervals == dim7:
+            print(f"The chord is a {num_to_letter[root]} diminished 7 chord.")
+        elif intervals == sus47:
+            print(f"The chord is a {num_to_letter[root]} 7sus4 chord.")
+        else:
+            print("No chord found.")
+
+def key_identifier(note):
+    notes = input("Insert the notes (separated by spaces), the first one being the root: ").split()
+    notes = [n.upper() for n in notes]
+    numbers = sorted(letter_to_num.get(n) for n in notes)
+    print("Notes:", notes)
+    print("Numbers:", numbers)
+
+    root = numbers[0]
+    print("Root:", root)
+
+    # Generate scales and modes
+    scales_and_modes = {
+        'major': major_scale(root),
+        'natural_minor': natural_minor_scale(root),
+        'harmonic_minor': harmonic_minor_scale(root),
+        'melodic_minor': melodic_minor_scale(root),
+        'dorian': dorian_mode(root),
+        'phrygian': phrygian_mode(root),
+        'lydian': lydian_mode(root),
+        'mixolydian': mixolydian_mode(root),
+        'locrian': locrian_mode(root),
+    }
+
+    matching_scales = []
+
+    # Check for matches
+    for scale_name, scale_notes in scales_and_modes.items():
+        if len(scale_notes) >= len(notes) and all(note in scale_notes for note in notes):
+            matching_scales.append(scale_name)
+
+    if matching_scales:
+        print(f"The scales that match: {', '.join(matching_scales)}.")
+        choice = input("Please choose one: ")
+        if choice in matching_scales:
+            return choice
+        else:
+            print("Invalid choice.")
+    else:
+        print("No matching scales found.")
 
 
 
 
 
-
-
-
-# print("The major (ionan) scale of your note is:", major_scale(note))
+# print("The major (ionian) scale of your note is:", major_scale(note))
 # print(dorian_mode(note))
 # print(phrygian_mode(note))
 # print(lydian_mode(note))
 # print(mixolydian_mode(note))
 # print(locrian_mode(note))
 # chord_prog(note)
-print(chord_identifier(note))
+# print(chord_identifier(note))
+print(key_identifier(note))

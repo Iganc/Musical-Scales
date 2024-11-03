@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chord Progressions Results</title>
+</head>
+<body>
+    <h1>Chord Progressions Results</h1>
+
+    <h2>Note: {{ note }}</h2>
+    <h3>Scale: {{ scale }}</h3>
+    <p>The resulting chords in the {{ scale }} scale are:</p>
+
+    <ul>
+    {% for chord in result %}
+        <li>{{ chord }}</li>
+    {% empty %}
+        <li>No notes found.</li>
+    {% endfor %}
+    </ul>
+
+    <a href="{% url 'explore-chord-progressions' %}">Try again</a>
+</body>
+</html>

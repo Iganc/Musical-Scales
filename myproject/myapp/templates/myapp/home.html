@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Musical Scales</title>
+    <!-- Link to your static CSS file -->
+    <link rel="stylesheet" href="{% static 'css/scales.css' %}">
+</head>
+<body>
+
+    <!-- Logo section -->
+    <div class='writing'>
+        <img src="{% static 'logo.png' %}" alt="Logo" width="500" height="500">
+    </div>
+
+    <!-- Container for the three navigation options -->
+    <div class="container">
+        <!-- Link to the explore scales page -->
+        <div>
+            <a href="{% url 'explore-scales' %}">
+<!--                <img src="{% static 'scales.png' %}" alt="Explore Scales">-->
+                <div class="main_writings">EXPLORE SCALES</div>
+            </a>
+        </div>
+
+        <!-- Link to the explore chords page -->
+        <div>
+            <a href="{% url 'explore-chords' %}">
+<!--                <img src="{% static 'chord.png' %}" alt="Explore Chords">-->
+                <div class="main_writings">EXPLORE CHORDS</div>
+            </a>
+        </div>
+
+        <!-- Link to the identify chords or scales page -->
+        <div>
+            <a href="{% url 'identify-chords' %}">
+<!--                <img src="{% static 'identify.png' %}" alt="Identify Chords and Scales">-->
+                <div class="main_writings">CHORD IDENTIFIER</div>
+            </a>
+        </div>
+
+        <div>
+            <a href="{% url 'identify-scales' %}">
+<!--                <img src="{% static 'identify.png' %}" alt="Identify Chords and Scales">-->
+                <div class="main_writings">SCALE IDENTIFIER</div>
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>
