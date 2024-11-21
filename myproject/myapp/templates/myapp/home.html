@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.25">
     <title>Musical Scales</title>
     <!-- Link to your static CSS file -->
     <link rel="stylesheet" href="{% static 'css/scales.css' %}">
@@ -13,7 +13,7 @@
 
     <!-- Logo section -->
     <div class='writing'>
-        <img src="{% static 'logo.png' %}" alt="Logo" width="500" height="500">
+        <img src="{% static 'logo.png' %}" alt="Logo" width="700" height="700">
     </div>
 
     <!-- Container for the three navigation options -->
@@ -37,14 +37,12 @@
         <!-- Link to the identify chords or scales page -->
         <div>
             <a href="{% url 'identify-chords' %}">
-<!--                <img src="{% static 'identify.png' %}" alt="Identify Chords and Scales">-->
                 <div class="main_writings">CHORD IDENTIFIER</div>
             </a>
         </div>
 
         <div>
             <a href="{% url 'identify-scales' %}">
-<!--                <img src="{% static 'identify.png' %}" alt="Identify Chords and Scales">-->
                 <div class="main_writings">SCALE IDENTIFIER</div>
             </a>
         </div>

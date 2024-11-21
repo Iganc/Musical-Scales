@@ -3,7 +3,7 @@
 {% load static %}
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.25">
     <title>Explore Scales</title>
     <link rel="stylesheet" href="{% static 'css/scales.css' %}">
 <script>
@@ -37,7 +37,7 @@ function highlightSelectedScale(scaleId, scaleValue) {
     if (document.getElementById('selectedNote').value && document.getElementById('selectedScale').value) {
         document.querySelector('form').submit();
     } else {
-        updateDisplay();  // Updates display if not both are selected
+        updateDisplay();
     }
 }
 
@@ -56,11 +56,13 @@ function highlightSelectedScale(scaleId, scaleValue) {
 </script>
 </head>
 <body>
-<!--    <img src="{% static 'EXPLORE SCALES.png' %}" alt="EXPLORE SCALES" width="25%">-->
+
 
     <form action="{% url 'explore-scales' %}" method="POST">
         {% csrf_token %}
-
+    <div>
+    <h1 class="boxy">Explore Scales</h1>
+    </div>
         <!-- Hidden inputs for selected values -->
 <input type="hidden" id="selectedNote" name="note" value="{{ note }}">
 <input type="hidden" id="selectedScale" name="scale" value="{{ scale }}">
@@ -120,5 +122,29 @@ function highlightSelectedScale(scaleId, scaleValue) {
     {% if error %}
         <p style="color: red;">{{ error }}</p>
     {% endif %}
+<a href="{% url 'explore-scales' %}">
+    <div class="restart" >Restart</div>
+</a>
+
+
+
+<div class="button-container">
+    <h3 class="writing">Check out other tools: </h3>
+    <div>
+        <a href="{% url 'explore-chords' %}">
+            <div class="adit_buttons">EXPLORE CHORDS</div>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'identify-chords' %}">
+            <div class="adit_buttons">CHORD IDENTIFIER</div>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'identify-scales' %}">
+            <div class="adit_buttons">SCALE IDENTIFIER</div>
+        </a>
+    </div>
+</div>
 </body>
 </html>

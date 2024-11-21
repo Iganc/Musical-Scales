@@ -3,78 +3,109 @@
 {% load static %}
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.25">
     <title>Identify Chords</title>
     <link rel="stylesheet" href="{% static 'css/scales.css' %}">
-<script>
-    function highlightSelectedNotes(noteId, noteValue) {
-    const noteElements = document.querySelectorAll('.note-box');
-    noteElements.forEach(el => el.classList.remove('selected'));
+    <script>
+        // Store selected notes in an array to display them
+        let selectedNotes = [];
 
-    const selectedNote = document.getElementById(noteId);
-    selectedNote.classList.add('selected');
+        function highlightSelectedNotes(noteId, noteValue) {
+            const selectedNoteElement = document.getElementById(noteId);
 
-    document.getElementById('selectedNote').value = noteValue;
+            // Toggle selection
+            if (selectedNotes.includes(noteValue)) {
+                selectedNotes = selectedNotes.filter(note => note !== noteValue);
+                selectedNoteElement.classList.remove('selected');
+            } else {
+                selectedNotes.push(noteValue);
+                selectedNoteElement.classList.add('selected');
+            }
 
-    // Check if both note and scale are selected, then submit
-    if (document.getElementById('selectedNote').value) {
-        document.querySelector('form').submit();
-    } else {
-        updateDisplay();  // Updates display if not both are selected
-    }
-}
+            // Update the hidden input value for form submission
+            document.getElementById('selectedNote').value = selectedNotes.join(' '); // Concatenate for form submission
+            updateDisplay();
 
-</script>
+            // Automatically submit the form if more than 3 notes are selected
+            if (selectedNotes.length > 5) {
+                document.getElementById('chord-form').submit();
+            }
+        }
+
+        // Function to update display notes
+        function updateDisplay() {
+            document.getElementById('displayNotes').innerText = selectedNotes.join(', ');
+        }
+    </script>
 </head>
 <body>
-<!--    <img src="{% static 'EXPLORE SCALES.png' %}" alt="EXPLORE SCALES" width="25%">-->
 
-    <form action="{% url 'identify-chords' %}" method="POST">
+    <form id="chord-form" action="{% url 'identify-chords' %}" method="POST">
         {% csrf_token %}
-
+        <div>
+        <h1 class="boxy">Identify Chords</h1>
+        </div>
         <!-- Hidden inputs for selected values -->
-<input type="hidden" id="selectedNote" name="note" value="{{ note }}">
+        <input type="hidden" id="selectedNote" name="notes" value="{{ note }}">
 
+        <!-- Note Selection -->
+        <label for="note">Select the notes:</label><br>
+        <div class="note-grid-container">
+            <div id="noteC" class="note-box {% if note == 'C' %}selected{% endif %}" onclick="highlightSelectedNotes('noteC', 'C')">C</div>
+            <div id="noteCsharp" class="note-box {% if note == 'C#' %}selected{% endif %}" onclick="highlightSelectedNotes('noteCsharp', 'C#')">C#</div>
+            <div id="noteD" class="note-box {% if note == 'D' %}selected{% endif %}" onclick="highlightSelectedNotes('noteD', 'D')">D</div>
+            <div id="noteDsharp" class="note-box {% if note == 'D#' %}selected{% endif %}" onclick="highlightSelectedNotes('noteDsharp', 'D#')">D#</div>
+            <div id="noteE" class="note-box {% if note == 'E' %}selected{% endif %}" onclick="highlightSelectedNotes('noteE', 'E')">E</div>
+            <div id="noteF" class="note-box {% if note == 'F' %}selected{% endif %}" onclick="highlightSelectedNotes('noteF', 'F')">F</div>
+            <div id="noteFsharp" class="note-box {% if note == 'F#' %}selected{% endif %}" onclick="highlightSelectedNotes('noteFsharp', 'F#')">F#</div>
+            <div id="noteG" class="note-box {% if note == 'G' %}selected{% endif %}" onclick="highlightSelectedNotes('noteG', 'G')">G</div>
+            <div id="noteGsharp" class="note-box {% if note == 'G#' %}selected{% endif %}" onclick="highlightSelectedNotes('noteGsharp', 'G#')">G#</div>
+            <div id="noteA" class="note-box {% if note == 'A' %}selected{% endif %}" onclick="highlightSelectedNotes('noteA', 'A')">A</div>
+            <div id="noteAsharp" class="note-box {% if note == 'A#' %}selected{% endif %}" onclick="highlightSelectedNotes('noteAsharp', 'A#')">A#</div>
+            <div id="noteB" class="note-box {% if note == 'B' %}selected{% endif %}" onclick="highlightSelectedNotes('noteB', 'B')">B</div>
+        </div>
 
-<!-- Note Selection -->
-<label for="note">Select a note:</label><br>
-    <div class="note-grid-container">
-        <div id="noteC" class="note-box {% if note == 'C' %}selected{% endif %}" onclick="highlightSelectedNotes('noteC', 'C')" value="C">C</div>
-        <div id="noteCsharp" class="note-box {% if note == 'C#' %}selected{% endif %}" onclick="highlightSelectedNotes('noteCsharp', 'C#')" value="C#">C#</div>
-        <div id="noteD" class="note-box {% if note == 'D' %}selected{% endif %}" onclick="highlightSelectedNotes('noteD', 'D')" value="D">D</div>
-        <div id="noteDsharp" class="note-box {% if note == 'D#' %}selected{% endif %}" onclick="highlightSelectedNotes('noteDsharp', 'D#')" value="D#">D#</div>
-        <div id="noteE" class="note-box {% if note == 'E' %}selected{% endif %}" onclick="highlightSelectedNotes('noteE', 'E')" value="E">E</div>
-        <div id="noteF" class="note-box {% if note == 'F' %}selected{% endif %}" onclick="highlightSelectedNotes('noteF', 'F')" value="F">F</div>
-        <div id="noteFsharp" class="note-box {% if note == 'F#' %}selected{% endif %}" onclick="highlightSelectedNotes('noteFsharp', 'F#')" value="F#">F#</div>
-        <div id="noteG" class="note-box {% if note == 'G' %}selected{% endif %}" onclick="highlightSelectedNotes('noteG', 'G')" value="G">G</div>
-        <div id="noteGsharp" class="note-box {% if note == 'G#' %}selected{% endif %}" onclick="highlightSelectedNotes('noteGsharp', 'G#')" value="G#">G#</div>
-        <div id="noteA" class="note-box {% if note == 'A' %}selected{% endif %}" onclick="highlightSelectedNotes('noteA', 'A')" value="A">A</div>
-        <div id="noteAsharp" class="note-box {% if note == 'A#' %}selected{% endif %}" onclick="highlightSelectedNotes('noteAsharp', 'A#')" value="A#">A#</div>
-        <div id="noteB" class="note-box {% if note == 'B' %}selected{% endif %}" onclick="highlightSelectedNotes('noteB', 'B')" value="B">B</div>
-    </div>
+        <br><br>
 
-<br><br>
-
-<!--<div>-->
-<!--    <p>Selected Note: <span id="displayNote"></span></p>-->
-<!--    <p>Selected Scale: <span id="displayScale"></span></p>-->
-<!--</div>-->
-<br><br>
-
-
+        <div>
+            <p>Selected Notes: <span id="displayNotes"></span></p>
+        </div>
+        <br><br>
+        <!-- Optional submit button if needed -->
+         <button class="submit-button" type="submit">Identify Chord</button>
     </form>
 
+    <!-- Result Display -->
     {% if result %}
-    <h2 class="result-heading">Generated Scale:</h2>
-    <ul class="result-list">
-        {% for note in result %}
-            <li>{{ note }}</li>  <!-- Each note will appear as a styled box -->
-        {% endfor %}
-    </ul>
-{% endif %}
+        <h2 class="result-heading">Identified Chord:</h2>
+        <p>{{ result }}</p>
+    {% endif %}
 
+    <!-- Error Display -->
     {% if error %}
         <p style="color: red;">{{ error }}</p>
     {% endif %}
+
+<a href="{% url 'identify-chords' %}">
+    <div class="restart">Restart</div>
+</a>
+<div class="button-container">
+    <h3 class="writing">Check out other tools: </h3>
+    <div>
+        <a href="{% url 'explore-scales' %}">
+            <div class="adit_buttons">EXPLORE SCALES</div>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'explore-chords' %}">
+            <div class="adit_buttons">EXPLORE CHORDS</div>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'identify-scales' %}">
+            <div class="adit_buttons">SCALE IDENTIFIER</div>
+        </a>
+    </div>
+</div>
 </body>
 </html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chord Progressions Results</title>
+</head>
+<body>
+    <h1>Chord Progressions Results</h1>
+
+    <h2>Notes: {{ notes }}</h2>
+    <h3>Chord: {{ chord }}</h3>
+
+
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <label for="notes">Enter Notes:</label>
+        <input type="text" name="notes" id="notes" required>
+        <button type="submit">Identify Chords</button>
+    </form>
+
+    {% if result %}
+        <h2>Result:</h2>
+        <p>{{ result }}</p>
+    {% endif %}
+
+    <a href="{% url 'identify-chords' %}">Try again</a>
+</body>
+</html>

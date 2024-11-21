@@ -3,7 +3,7 @@
 {% load static %}
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.25">
     <title>Explore Chords and Chord progressions</title>
     <link rel="stylesheet" href="{% static 'css/scales.css' %}">
     <script>
@@ -59,12 +59,9 @@
 
     <form action="{% url 'explore-chords' %}" method="POST">
         {% csrf_token %}
-
-<!--    <div id="debug-info">-->
-<!--        <p>Selected Note: {{ note }}</p>-->
-<!--        <p>Selected Scale: {{ scale }}</p>-->
-<!--    </div>-->
-        <!-- Hidden inputs to store selected values -->
+        <div>
+    <h1 class="boxy">Explore Chord Progressions</h1>
+        </div>
         <input type="hidden" id="selectedNote" name="note" value="{{ note }}">
         <input type="hidden" id="selectedScale" name="scale" value="{{ scale }}">
 
@@ -113,9 +110,9 @@
     </form>
 
     <h2 class="result-heading">Results</h2>
-    <h3>Note: {{ note }}</h3>
-    <h3>Scale: {{ scale }}</h3>
-    <p class="result-list-chords">The resulting chords in the {{ scale }} scale are:</p>
+<!--    <h3>Note: {{ note }}</h3>-->
+<!--    <h3>Scale: {{ scale }}</h3>-->
+    <p class="result-list-chords">The resulting chords in the {{ note }} {{ scale }} scale are:</p>
         <ul class="result-list-chords">
             {% for chord in result %}
                 <li class="li">{{ chord }}</li>
@@ -123,6 +120,27 @@
             {% endfor %}
         </ul>
 
-    <a href="{% url 'explore-chords' %}">Restart</a>
+    <a href="{% url 'explore-chords' %}">
+        <div class="restart" >Restart</div>
+</a>
+
+<div class="button-container">
+    <h3 class="writing">Check out other tools: </h3>
+    <div>
+        <a href="{% url 'explore-scales' %}">
+            <div class="adit_buttons">EXPLORE SCALES</div>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'identify-chords' %}">
+            <div class="adit_buttons">CHORD IDENTIFIER</div>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'identify-scales' %}">
+            <div class="adit_buttons">SCALES IDENTIFIER</div>
+        </a>
+    </div>
+</div>
 </body>
 </html>

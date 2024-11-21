@@ -9,7 +9,7 @@ urlpatterns = [
     path('explore-scales/', views.explore_scales_view, name='explore-scales'),
     path('explore-chords/', views.explore_chords, name='explore-chords'),  # Explore chords page
     path('identify-chords/', views.identify_chords, name='identify-chords'),
-    path('identify-scales/', views.identify_scales, name='identify-scales'),# Identify chords and scales page
+    path('identify-scales/', views.identify_scales, name='identify-scales'),
     path('test/', test_template, name='test-template'),
 ]
 
