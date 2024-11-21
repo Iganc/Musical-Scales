@@ -1,5 +1,5 @@
 [build]
-  command = "python manage.py collectstatic --noinput && python manage.py runserver 0.0.0.0:8000"
+  command = "python manage.py collectstatic --noinput && python manage.py migrate"
   publish = "staticfiles"
 
 [dev]
@@ -17,7 +17,7 @@
 [context.production.environment]
   DJANGO_SETTINGS_MODULE = "myproject.settings"
   DEBUG = "False"
-  SECRET_KEY = "your-production-secret-key"
+  SECRET_KEY = "your-production-secret-key"  # Set this securely in your environment variables.
 
 [context.deploy-preview.environment]
   DJANGO_SETTINGS_MODULE = "myproject.settings"
