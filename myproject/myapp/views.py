@@ -22,31 +22,30 @@ from .scales import (
 
 
 from django.shortcuts import render
-from .DICTIONARIES import letter_to_num, num_to_letter  # Import your dictionaries
+from .DICTIONARIES import letter_to_num, num_to_letter
 from .EXPLORE_SCALES import major_scale, natural_minor_scale, harmonic_minor_scale, melodic_minor_scale, dorian_mode, lydian_mode, mixolydian_mode, ionian_mode, phrygian_mode, aeolian_mode, locrian_mode
 from .explore_chord_progressions import chord_prog, scale
 from .identify_chords import chord_identifier
 
 def explore_scales_view(request):
     if request.method == 'POST':
-        note = request.POST.get('note')  # Get the note
-        scale = request.POST.get('scale')  # Get the selected scale
+        note = request.POST.get('note')
+        scale = request.POST.get('scale')
 
         if note is None or scale is None:
-            # If no note or scale is selected, return the form with an error
             return render(request, 'myapp/explore-scales.html', {
                 'error': "Please select both a note and a scale.",
             })
 
-        note = note.upper()  # Convert note to uppercase
-        note_num = letter_to_num.get(note, None)  # Convert letter note to number
+        note = note.upper()
+        note_num = letter_to_num.get(note, None)
 
         if note_num is None:
             return render(request, 'myapp/explore-scales.html', {
                 'error': f"Invalid note: {note}. Please enter a valid note.",
             })
 
-        # Determine the scale to display based on the user's selection
+
         if scale == 'major':
             result = major_scale(note_num)
         elif scale == 'natural minor':
@@ -70,12 +69,12 @@ def explore_scales_view(request):
         elif scale == 'locrian':
             result = locrian_mode(note_num)
         else:
-            result = []  # Default case if the scale is not recognized
+            result = []
 
         return render(request, 'myapp/explore-scales.html', {
             'note': note,
             'scale': scale,
-            'result': result,  # Pass the resulting notes to the template
+            'result': result,
         })
 
     return render(request, 'myapp/explore-scales.html')
@@ -84,16 +83,16 @@ def explore_scales_view(request):
 
 
 def home(request):
-    return render(request, 'myapp/home.html')  # Ensure this path is correct
+    return render(request, 'myapp/home.html')
 
 def process_note(request):
     if request.method == 'POST':
-        note = request.POST.get('note')  # Get the note input from your form
+        note = request.POST.get('note')
         note_num = letter_to_num.get(note.upper(), None)
 
-        # Use your Python logic (e.g., `major_scale`) here
+
         if note_num:
-            scale = major_scale(note_num)  # Replace with the function you want to use
+            scale = major_scale(note_num)
             return render(request, 'myapp/result.html', {'scale': scale})
         else:
             return render(request, 'myapp/result.html', {'error': 'Invalid note'})
@@ -104,54 +103,54 @@ from django.shortcuts import render
 
 
 
-# View for exploring chords
+
 def explore_chords(request):
     if request.method == 'POST':
-        note = request.POST.get('note')  # Get the note
-        scale = request.POST.get('scale')  # Get the selected scale
+        note = request.POST.get('note')
+        scale = request.POST.get('scale')
 
         if note is None or scale is None:
             return render(request, 'myapp/explore-chord-progressions.html', {
                 'error': "Please select both a note and a scale.",
             })
 
-        note = note.upper()  # Convert note to uppercase
-        note_num = letter_to_num.get(note, None)  # Convert letter note to number
+        note = note.upper()
+        note_num = letter_to_num.get(note, None)
 
         if note_num is None:
             return render(request, 'myapp/explore-chord-progressions.html', {
                 'error': f"Invalid note: {note}. Please enter a valid note.",
             })
 
-        # Call chord_prog with the correct note_num
+
         result = chord_prog(note_num, scale)
 
-        # Assuming result is a string, split it into a list
+
         result = [chord.strip() for chord in result.split(',')]
 
         return render(request, 'myapp/explore-chord-progressions.html', {
             'note': note,
             'scale': scale,
-            'result': result,  # Pass the resulting notes to the template
+            'result': result,
         })
 
     return render(request, 'myapp/explore-chord-progressions.html')
 
 
-# View for identifying chords or scales
+
 def identify_chords(request):
     selected_notes = []
 
     if request.method == 'POST':
-        notes = request.POST.get('notes')  # Get the notes
+        notes = request.POST.get('notes')
 
         if notes is None or notes.strip() == '':
             return render(request, 'myapp/identify-chords.html', {
                 'error': "Please select at least one note.",
             })
 
-        notes = notes.upper().split()  # Convert to uppercase and split into a list
-        selected_notes = notes  # Store selected notes for the context
+        notes = notes.upper().split()
+        selected_notes = notes
         notes_num = [letter_to_num.get(note, None) for note in notes]
 
         if None in notes_num:
@@ -161,10 +160,10 @@ def identify_chords(request):
                 'selected_notes': selected_notes,
             })
 
-        result = chord_identifier(notes)  # Call chord_identifier with the list of notes
+        result = chord_identifier(notes)
 
         return render(request, 'myapp/identify-chords.html', {
-            'result': result,  # Pass the resulting chords to the template
+            'result': result,
             'selected_notes': selected_notes,
         })
 
@@ -234,7 +233,7 @@ def identify_scales(request):
             'error': error_message
         })
 
-    # For GET requests (first page load), render the page without processing form
+
     return render(request, 'myapp/identify-scales.html')
 
 

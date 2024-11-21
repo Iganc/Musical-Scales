@@ -40,11 +40,7 @@ flats_to_sharps = {
 }
 
 
-# note = input("Give me a note: ").upper()
-# note = letter_to_num.get(note, None)
 
-
-# print(note)
 def major_scale(note):
     notes = [note, note + 2, note + 4, note + 5, note + 7, note + 9, note + 11]
     notes = [num_to_letter.get(note, None) for note in notes]
@@ -117,18 +113,3 @@ def locrian_mode(note):
     notes = major_scale(note)
     return notes
 
-
-
-
-
-
-
-# print("The major (ionian) scale of your note is:", major_scale(note))
-# print(dorian_mode(note))
-# print(phrygian_mode(note))
-# print(lydian_mode(note))
-# print(mixolydian_mode(note))
-# print(locrian_mode(note))
-# chord_prog(note)
-# print(chord_identifier(note))
-# print(key_identifier(note))
