@@ -5,7 +5,7 @@ Musical Scales is a web application that helps you explore musical scales, modes
 ## 📱 Working on
 Phone Compatibility
 
-We are currently working on improving the phone compatibility of the Musical Scales web app to ensure a better experience on mobile devices.
+I am currently working on improving the phone compatibility of the Musical Scales web app to ensure a better experience on mobile devices.
 
 ## 🚀 Now Hosting
 
