@@ -1,17 +1,13 @@
 from myapp.DICTIONARIES import letter_to_num, num_to_letter
 
 def chord_identifier(notes):
-    # Ensure notes are in a list
     notes = notes.split() if isinstance(notes, str) else notes
     notes = [n.upper() for n in notes]  # Convert all notes to uppercase
 
-    # Convert notes to their numeric representation
     numbers = [letter_to_num.get(note) for note in notes]
 
-    # List to hold identified chords
     identified_chords = []
 
-    # Define chord interval patterns
     chord_patterns = {
         'major': [0, 4, 7],
         'minor': [0, 3, 7],
@@ -47,11 +43,10 @@ def chord_identifier(notes):
     for i, root in enumerate(numbers):
         intervals = sorted([(note - root) % 12 for note in numbers])
 
-        # Check for a match with known chord patterns
         for chord_name, pattern in chord_patterns.items():
             if intervals == pattern:
-                identified_chords.append(f"The chord is a {num_to_letter[root]} {chord_name.replace('_', ' ')} chord.")
-                break  # Stop checking after finding a match
+                identified_chords.append(f"The chord is a {num_to_letter[root]} {chord_name.replace('_',  ' ')} chord.")
+                break
 
-    return identified_chords if identified_chords else ["No chord found."]
-# add choice, print the possible chords?
+    return ' '.join(identified_chords) if identified_chords else "No chord found."
+

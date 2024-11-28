@@ -1,3 +1,100 @@
+@media (max-width: 900px) {
+  .main_writings {
+    width: 10%;
+    height: 10%;
+    font-size: 20px;
+    padding: 20px;
+    border-width: 2px;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  .container > div {
+    margin-bottom: 50px;
+    width: 10%;
+    height: 10%;
+  }
+  .writing img {
+    max-width: 50%;
+    height: 50%;
+  }
+  .container a {
+    width: 30%; /* Full-width links with proper padding */
+    max-width: 400px; /* Prevent overly wide buttons */
+  }
+.note-box, .scale-box {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  font-family: 'Georgia', serif;
+  font-size: 10px;
+  font-style: italic;
+  color: whitesmoke;
+  background-color: #5D8AA8;
+  border: 2px solid #ccc;
+  margin: 5px;
+  max-width: 100%;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.note-box{
+  font-size:18px;
+  width:50px;
+}
+
+.scale-box{
+  width:75px;
+}
+.adit_buttons {
+  display: flex;
+  align-items: bottom;
+  justify-content: bottom;
+  width: 100px;
+  height: 50px;
+  background-color: #5D8AA8;
+  color: white;
+  font-family: 'Georgia', serif;
+  font-style: italic;
+  font-size: 13px;
+  border: 2px solid whitesmoke;
+  text-decoration: none;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+
+
+}
+@media (max-width: 480px) {
+  .main_writings {
+    font-size: 18px;
+    padding: 15px;
+  }
+
+  .container {
+    gap: 10px; /* Smaller gaps */
+  }
+
+  .container a {
+    width: 100%; /* Full width */
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  .boxy, .restart, .submit-button {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .writing img {
+    width: 70%; /* Smaller logo */
+  }
+}
 body {
   background-color: #b5d2d6;
   text-align: center;
@@ -16,26 +113,30 @@ body {
   text-align: center;
   width: 100%;
   margin-top: 20px;
+  border-radius: 10px;
 }
 
-.containing{
+.containing {
   text-align: center;
   text-decoration: none;
   width: 50%;
   display: inline-block;
   margin: 0 20px;
   cursor: pointer;
+  border-radius: 10px;
 }
 
 .container > div {
   display: inline-block;
   margin: 0 20px;
   cursor: pointer;
+  border-radius: 10px;
 }
 
 .container img {
   width: 280px;
   height: 150px;
+  border-radius: 10px;
 }
 
 .box {
@@ -48,6 +149,7 @@ body {
   border-color: #5D8AA8;
   background-color: white;
   cursor: pointer;
+  border-radius: 10px;
 }
 
 .boxy {
@@ -63,6 +165,7 @@ body {
   width: auto;
   font-family: "Lucida Console", monospace;
   margin-bottom: 20px;
+  border-radius: 10px;
 }
 
 .restart {
@@ -78,7 +181,8 @@ body {
   width: auto;
   font-family: "Lucida Console", monospace;
   margin-bottom: 20px;
-  margin-top:50px;
+  margin-top: 50px;
+  border-radius: 10px;
 }
 
 h1.boxy {
@@ -93,7 +197,8 @@ h1.boxy {
   gap: 10px;
 }
 
-.note-box, .scale-box {
+.note-box,
+.scale-box {
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -108,18 +213,20 @@ h1.boxy {
   margin: 5px;
   max-width: 100%;
   transition: border-color 0.3s, box-shadow 0.3s;
+  border-radius: 10px; /* Rounded edges */
 }
 
-.note-box{
-  font-size:35px;
-  width:100px;
+.note-box {
+  font-size: 35px;
+  width: 100px;
 }
 
-.scale-box{
-  width:150px;
+.scale-box {
+  width: 150px;
 }
 
-.note-grid-container, .scale-grid-container {
+.note-grid-container,
+.scale-grid-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -148,7 +255,7 @@ h1.boxy {
   color: #333;
   padding: 15px;
   margin: 5px;
-  border-radius: 20px;
+  border-radius: 10px; /* Rounded edges */
   background-color: #f4f4f4;
   display: inline-block;
   min-width: 80px;
@@ -201,6 +308,7 @@ h1.boxy {
   text-decoration: none;
   box-sizing: border-box;
   margin: 0;
+  border-radius: 10px;
 }
 
 a {
@@ -221,6 +329,7 @@ a {
   border: 4px solid whitesmoke;
   box-sizing: border-box;
   text-decoration: none;
+  border-radius: 10px;
 }
 
 .container a {
@@ -271,3 +380,4 @@ a {
   background-color: #3e8e41;
   transform: scale(1);
 }
+/*dsadas*/

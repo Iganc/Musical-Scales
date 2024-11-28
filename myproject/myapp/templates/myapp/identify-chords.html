@@ -78,7 +78,9 @@
     <!-- Result Display -->
     {% if result %}
         <h2 class="result-heading">Identified Chord:</h2>
-        <p>{{ result }}</p>
+    <ul class="result-list">
+        <li>{{ result }}</li>
+    </ul>
     {% endif %}
 
     <!-- Error Display -->
